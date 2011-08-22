@@ -345,8 +345,9 @@ class Pull < Operation
     max_retries = 10
     begin
       tables = OkJson.decode(session_resource['pull/table_names'].get(http_headers).to_s)
-    rescue RestClient::Exception
+    rescue RestClient::Exception => e
       retries += 1
+      puts "RestClient exception: #{e.message}"
       retry if retries <= max_retries
       puts "Unable to fetch tables information from #{remote_url}. Please check the server log."
       exit(1)
