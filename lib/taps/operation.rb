@@ -359,7 +359,8 @@ class Pull < Operation
       begin
         count = session_resource['pull/table_count'].post({:table => table_name}, http_headers).to_s.to_i
         data[table_name] = count
-      rescue RestClient::Exception
+      rescue RestClient::Exception => e
+        puts "RestClient exception: #{e.message}"
         retries += 1
         retry if retries <= max_retries
         puts "Unable to fetch tables information from #{remote_url}. Please check the server log."
