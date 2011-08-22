@@ -131,8 +131,7 @@ class Operation
   end
 
   def server
-    @server ||= RestClient::Resource.new(remote_url, :timeout => -1,
-                                                     :open_timeout => -1)
+    @server ||= RestClient::Resource.new(remote_url, :timeout => -1)
   end
 
   def session_resource
